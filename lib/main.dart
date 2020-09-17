@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     final HttpLink httpLink =
-        HttpLink(uri: "https://hagglex-backend.herokuapp.com/graphql");
+    HttpLink(uri: "https://hagglex-backend.herokuapp.com/graphql");
     final AuthLink authLink = AuthLink(
       getToken: () async => 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyOGMyMDU0OC1mNGUxLTRiOTgtOGY4My00MGFjZmYyODEzNjQiLCJpYXQiOjE2MDAyNjA1ODAsImV4cCI6MTYwMDM0Njk4MH0.zcQm4fxfrVOQYxciVZi1gs0jBsn-IMey6De9GoZ2FbQ',
       // OR
@@ -87,185 +87,187 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text("Hagglex Authentication"),
       ),
-      body: ModalProgressHUD(
-        inAsyncCall: showSpinner,
-        child: Mutation(
-          options: MutationOptions(
-            documentNode: gql(register), // this is the mutation string you just created
-            // you can update the cache based on results
-            update: (Cache cache, QueryResult result) {
-              return cache;
-            },
-            // or do something with the result.data on completion
-            onCompleted: (dynamic resultData) {
-              print(resultData);
+      body: Container(
+        child: ModalProgressHUD(
+          inAsyncCall: showSpinner,
+          child: Mutation(
+            options: MutationOptions(
+              documentNode: gql(register), // this is the mutation string you just created
+              // you can update the cache based on results
+              update: (Cache cache, QueryResult result) {
+                return cache;
+              },
+              // or do something with the result.data on completion
+              onCompleted: (dynamic resultData) {
+                print(resultData);
 
-              setState(() {
-                showSpinner = false;
-              });
+                setState(() {
+                  showSpinner = false;
+                });
 
-              if(resultData == null){
-                Fluttertoast.showToast(
-                    msg: "Sorry You have Already Registered",
-                    toastLength: Toast.LENGTH_SHORT,
-                    backgroundColor: Colors.red,
-                    textColor: Colors.white);
-              }else{
-                Fluttertoast.showToast(
-                    msg: "Registration Successful",
-                    toastLength: Toast.LENGTH_SHORT,
-                    backgroundColor: Colors.green,
-                    textColor: Colors.white);
-                Navigator.push(
-                    context,
-                    PageTransition(
-                        type: PageTransitionType.rightToLeft,
-                        child: HomeView()));
-              }
+                if(resultData == null){
+                  Fluttertoast.showToast(
+                      msg: "Sorry You have Already Registered",
+                      toastLength: Toast.LENGTH_SHORT,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white);
+                }else{
+                  Fluttertoast.showToast(
+                      msg: "Registration Successful",
+                      toastLength: Toast.LENGTH_SHORT,
+                      backgroundColor: Colors.green,
+                      textColor: Colors.white);
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          type: PageTransitionType.rightToLeft,
+                          child: HomeView()));
+                }
 
-            },
-          ),
-          builder: ( RunMutation runMutation, QueryResult result,){
-            return SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Text("Registration Authentication"),
-                  Card(
-                    elevation: 10,
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextField(
-                              controller: emailController,
-                              decoration: InputDecoration(
-                                hintText: 'Enter your email',
+              },
+            ),
+            builder: ( RunMutation runMutation, QueryResult result,){
+              return SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Text("Registration Authentication"),
+                    Card(
+                      elevation: 10,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextField(
+                                controller: emailController,
+                                decoration: InputDecoration(
+                                  hintText: 'Enter your email',
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextField(
-                              controller: usernameController,
-                              decoration: InputDecoration(
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextField(
+                                controller: usernameController,
+                                decoration: InputDecoration(
 
-                                hintText: 'Enter username',
+                                  hintText: 'Enter username',
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextField(
-                              controller: passwordController,
-                              decoration: InputDecoration(
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextField(
+                                controller: passwordController,
+                                decoration: InputDecoration(
 
-                                hintText: 'Enter password',
+                                  hintText: 'Enter password',
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextField(
-                              controller: referralController,
-                              decoration: InputDecoration(
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextField(
+                                controller: referralController,
+                                decoration: InputDecoration(
 
-                                hintText: 'Enter referral Code',
+                                  hintText: 'Enter referral Code',
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextField(
-                              controller: phoneController,
-                              decoration: InputDecoration(
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextField(
+                                controller: phoneController,
+                                decoration: InputDecoration(
 
-                                hintText: 'Enter phone number',
+                                  hintText: 'Enter phone number',
+                                ),
                               ),
                             ),
-                          ),
 
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      RaisedButton(
-                        child: Text("sign up"),
-                        onPressed: () {
-                          if (emailController.text == '') {
-                            Fluttertoast.showToast(
-                                msg: "Fill all input fields",
-                                toastLength: Toast.LENGTH_SHORT,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white);
-                          }
-                          else if (passwordController.text == '') {
-                            Fluttertoast.showToast(
-                                msg: "Fill all input fields",
-                                toastLength: Toast.LENGTH_SHORT,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white);
-                          }
-                          else if (phoneController.text == '') {
-                            Fluttertoast.showToast(
-                                msg: "Fill all input fields",
-                                toastLength: Toast.LENGTH_SHORT,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white);
-                          }
-                          else if (referralController.text == '') {
-                            Fluttertoast.showToast(
-                                msg: "Fill all input fields",
-                                toastLength: Toast.LENGTH_SHORT,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white);
-                          }
-                          else if (usernameController.text == '') {
-                            Fluttertoast.showToast(
-                                msg: "Fill all input fields",
-                                toastLength: Toast.LENGTH_SHORT,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white);
-                          }
-                          else{
-                            setState(() {
-                              showSpinner = true;
-                            });
-                            runMutation({
-                              "email": emailController.text,
-                              "username": usernameController.text,
-                              "password": passwordController.text,
-                              "phonenumber": phoneController.text,
-                              "referralCode": referralController.text
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        RaisedButton(
+                            child: Text("sign up"),
+                            onPressed: () {
+                              if (emailController.text == '') {
+                                Fluttertoast.showToast(
+                                    msg: "Fill all input fields",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white);
+                              }
+                              else if (passwordController.text == '') {
+                                Fluttertoast.showToast(
+                                    msg: "Fill all input fields",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white);
+                              }
+                              else if (phoneController.text == '') {
+                                Fluttertoast.showToast(
+                                    msg: "Fill all input fields",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white);
+                              }
+                              else if (referralController.text == '') {
+                                Fluttertoast.showToast(
+                                    msg: "Fill all input fields",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white);
+                              }
+                              else if (usernameController.text == '') {
+                                Fluttertoast.showToast(
+                                    msg: "Fill all input fields",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white);
+                              }
+                              else{
+                                setState(() {
+                                  showSpinner = true;
+                                });
+                                runMutation({
+                                  "email": emailController.text,
+                                  "username": usernameController.text,
+                                  "password": passwordController.text,
+                                  "phonenumber": phoneController.text,
+                                  "referralCode": referralController.text
 
-                            });
-                          }
+                                });
+                              }
 
 
-                        }
-                      ),
-                      RaisedButton(
-                        child: Text("Log In"),
-                        onPressed: (){
-                          Navigator.push(
-                              context,
-                              PageTransition(
-                                  type: PageTransitionType.rightToLeft,
-                                  child: LoginApp()));
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            );
+                            }
+                        ),
+                        RaisedButton(
+                          child: Text("Log In"),
+                          onPressed: (){
+                            Navigator.push(
+                                context,
+                                PageTransition(
+                                    type: PageTransitionType.rightToLeft,
+                                    child: LoginApp()));
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
 
-          },
+            },
 
+          ),
         ),
       ),
     );

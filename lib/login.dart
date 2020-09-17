@@ -51,6 +51,13 @@ class _HomePageLoginState extends State<HomePageLogin> {
 
   bool showSpinner = false;
 
+  void clearControllers(){
+    emailController.clear();
+
+    passwordController.clear();
+
+  }
+
 
   final String login = """
                  mutation(\$email: String!,\$password:String!){
@@ -93,7 +100,7 @@ class _HomePageLoginState extends State<HomePageLogin> {
             // or do something with the result.data on completion
             onCompleted: (dynamic resultData) {
               print(resultData);
-
+              clearControllers();
               setState(() {
                 showSpinner = false;
               });

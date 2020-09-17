@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/login.dart';
+import 'package:page_transition/page_transition.dart';
 
 
 class HomeView extends StatefulWidget {
@@ -25,6 +27,18 @@ class _HomeViewState extends State<HomeView> {
                       ),
                       ),
                     )),
+                RaisedButton(
+                  onPressed: (){
+                   Navigator.pop(context);
+                  },
+                  child: Text("Log Out",
+                    style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 50.0
+                    ),
+                  ),
+                ),
+
               ],
             )),
       ),
